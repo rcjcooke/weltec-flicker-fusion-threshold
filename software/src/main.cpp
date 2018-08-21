@@ -42,7 +42,7 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   pinMode(POTENTIOMETER_PIN, INPUT);
   pinMode(BUTTON_PIN, INPUT_PULLDOWN);
-  attachInterrupt(BUTTON_PIN, buttonPressed, RISING);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressed, RISING);
   digitalWrite(LED_PIN, gLEDState);
   Serial.begin(115200);
 }
