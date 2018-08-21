@@ -28,7 +28,7 @@ uint8_t gLEDState = LOW;
 /********************
  * Interrupt routines
  ********************/
-void buttonPressed() {
+void buttonPressedISR() {
   gLastButtonStateChangeTime = millis();
   gButtonPressed = true;
 }
@@ -42,7 +42,7 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   pinMode(POTENTIOMETER_PIN, INPUT);
   pinMode(BUTTON_PIN, INPUT_PULLDOWN);
-  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressed, RISING);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressedISR, RISING);
   digitalWrite(LED_PIN, gLEDState);
   Serial.begin(115200);
 }
