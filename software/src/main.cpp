@@ -1,5 +1,8 @@
 #include <Arduino.h>
 
+/************************
+ * Constants
+ ************************/
 // Pin definitions
 static const uint8_t LED_PIN = 18;
 static const uint8_t BUTTON_PIN = 16;
@@ -13,10 +16,13 @@ static const unsigned long MIN_HALF_PERIOD_MICROS = 5000;
 // The maximum period of time for which the LED will blink on in microseconds
 static const unsigned long MAX_HALF_PERIOD_MICROS = 20000;
 
+/************************
+ * Variables
+ ************************/
 // The last time the button interrupt was triggered
 unsigned long gLastButtonStateChangeTime = 0;
 // The last button state we wrote to the LED
-bool gButtonPressed = false;
+volatile bool gButtonPressed = false;
 
 // The time in microseconds that the LED is currently on or off
 unsigned long gHalfPeriod = 100000;
@@ -25,9 +31,9 @@ unsigned long gLastLEDChangeMicros = 0;
 // The current state of the LED
 uint8_t gLEDState = LOW;
 
-/********************
+/*********************
  * Interrupt routines
- ********************/
+ *********************/
 void buttonPressedISR() {
   gLastButtonStateChangeTime = millis();
   gButtonPressed = true;
@@ -66,7 +72,7 @@ void loop() {
     // Make sure it's not a bounce
     if (millis() - gLastButtonStateChangeTime > DEBOUNCE_DELAY_MILLIS) {
       // Print current frequency
-      float frequency = 500000 / ((float) gHalfPeriod);
+      float frequency = (float) 500000 / ((float) gHalfPeriod);
       Serial.println("Flicker fusion threshold frequency: " + String(frequency) + "Hz");
       gButtonPressed = false;
     }
