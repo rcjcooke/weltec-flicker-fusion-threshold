@@ -74,8 +74,9 @@ void setup() {
   pinMode(BUTTON_PIN, INPUT_PULLDOWN);
   pinMode(POTENTIOMETER_PIN, INPUT);
   analogReadResolution(10);
+#if ESP_PLATFORM
   analogSetAttenuation(ADC_6db);
-
+#endif
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressedISR, CHANGE);
   digitalWrite(LED_PIN, gLEDState);
   Serial.begin(115200);
