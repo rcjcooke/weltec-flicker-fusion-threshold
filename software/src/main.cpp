@@ -1,13 +1,20 @@
 #include <Arduino.h>
 
+// Surprised this definition doesn't exist in the ESP IDF
+#define ADC1_CH0 36
+
 /************************
  * Constants
  ************************/
+
 // Pin definitions
 static const uint8_t LED_PIN = 18;
 static const uint8_t BUTTON_PIN = 16;
+#if ESP_PLATFORM
+static const uint8_t POTENTIOMETER_PIN = ADC1_CH0;
+#else
 static const uint8_t POTENTIOMETER_PIN = A3;
-
+#endif
 // Delay before accepting button state change for debouncing purposes
 static const unsigned long LOCKOUT_DELAY_MILLIS = 2;
 
@@ -64,8 +71,11 @@ void buttonPressedISR() {
 void setup() {
   // Set up pins and internals
   pinMode(LED_PIN, OUTPUT);
-  pinMode(POTENTIOMETER_PIN, INPUT);
   pinMode(BUTTON_PIN, INPUT_PULLDOWN);
+  pinMode(POTENTIOMETER_PIN, INPUT);
+  analogReadResolution(10);
+  analogSetAttenuation(ADC_6db);
+
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressedISR, CHANGE);
   digitalWrite(LED_PIN, gLEDState);
   Serial.begin(115200);
