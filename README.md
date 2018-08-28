@@ -64,6 +64,15 @@ It turns out that my threshold is between about 49 and 53 Hz depending on ambien
 
 Given the realisation that ambient lighting conditions have some affect, future experiments should be conducted in a consistently lit, probably dark, environment.
 
+## Update
+Since the first cut of this I have also rebuilt this on an ESP Wrover Kit (based on the ESP32 Wroom chip) and added a 7-segment display to show the frequency so that the user doesn't have to fire up a Terminal to find out. The resulting setup can be seen below:
+
+![ESP Wrover Kit based implementation](esp32version.jpg)
+
+In putting this together I found a frustrating lack of consolidated information about the ESP Wrover Kit board pinout so I've created a pinout map for it which can be found in the datasheets directory. I couldn't connect up one of the pins for the 4 digit 7-segment display in the end because I didn't have enough GPIO available with the setup that the wrover kit dev board uses (though in theory it's alterable with a little surgery). Also this is because I wanted the JTAG interface available, which steals some additional GPIO when it's enabled. Another couple of pins are used by the 32 KHz crystal on the board. Finally some are input only. Details can be found in the spreadsheet.
+
+Secondly the button I used happen to be WAY more bouncy than the one I used on the Teensy so I had to increase the lockout to 100 ms (instead of only 2ms!). Works nicely now though. There are a number of other quirks of the Arduino framework implementation of the ESP32 I discovered along the way, which can be found in the codebase.
+
 ## References
 
 **Note**: Some relevent datasheets can be found in the datasheets directory of this repository.
