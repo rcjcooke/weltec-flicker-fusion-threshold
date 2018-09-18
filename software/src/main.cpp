@@ -57,7 +57,7 @@ unsigned long gLastLEDChangeMicros = 0;
 // The current state of the LED
 uint8_t gLEDState = LOW;
 // Seven Segment display instance
-SevSeg sevenSegmentDisplay;
+SevSeg mSevenSegmentDisplay;
 
 /*********************
  * Interrupt routines
@@ -110,7 +110,7 @@ void setup() {
   byte segmentPins[] = {DISPLAY_A_PIN, DISPLAY_B_PIN, DISPLAY_C_PIN,
                         DISPLAY_D_PIN, DISPLAY_E_PIN, DISPLAY_F_PIN,
                         DISPLAY_G_PIN, DISPLAY_DP_PIN};
-  sevenSegmentDisplay.begin(COMMON_CATHODE, numDigits, digitPins, segmentPins);
+  mSevenSegmentDisplay.begin(COMMON_CATHODE, numDigits, digitPins, segmentPins, true);
 
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressedISR, CHANGE);
   digitalWrite(LED_PIN, gLEDState);
@@ -144,8 +144,8 @@ void loop() {
     float frequency = (float)500000 / ((float)gHalfPeriod);
     Serial.println("Flicker fusion threshold frequency: " + String(frequency) +
                    "Hz");
-    sevenSegmentDisplay.setNumber(frequency, 1);
+    mSevenSegmentDisplay.setNumber(frequency, 1);
     gButtonStateChangeToAction = false;
   }
-  sevenSegmentDisplay.refreshDisplay();
+  mSevenSegmentDisplay.refreshDisplay();
 }
