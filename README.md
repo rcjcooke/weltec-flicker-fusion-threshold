@@ -2,7 +2,7 @@
 
 Weltec MG7013 Project 0 - Teensy based human flicker fusion threshold determining system.
 
->"The flicker fusion threshold (or flicker fusion rate) is a concept in the psychophysics of vision. It is defined as the frequency at which an intermittent lght stimulus appears to be completed steady to the average human observer."
+>"The flicker fusion threshold (or flicker fusion rate) is a concept in the psychophysics of vision. It is defined as the frequency at which an intermittent light stimulus appears to be completely steady to the average human observer."
 
 *Flicker fusion threshold - Wikipedia. (n.d.). Retrieved March 15, 2017, from https://www.wikipedia.com/en/Flicker_fusion_threshold*
 
